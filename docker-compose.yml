@@ -3,10 +3,12 @@ elasticsearch:
   ports:
     - "9200:9200"
 logstash:
-  image: logstash:latest
-  command: logstash -f /etc/logstash/conf.d/logstash.conf
+  image: logstash:1.4.2
+  command: logstash --pluginpath /opt/logstash/bin/plugin -f /etc/logstash/conf.d/
   volumes:
     - ./logstash/config:/etc/logstash/conf.d
+    - ./logstash/plugin:/opt/logstash/bin/plugin  
+
   ports:
     - "5000:5000"
   links:
