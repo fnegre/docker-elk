@@ -4,14 +4,15 @@ elasticsearch:
     - "9200:9200"
 logstash:
   image: logstash:1.4.2
-  command: logstash --pluginpath /opt/logstash/bin/plugins/ -f /etc/logstash/conf.d/
+  command: logstash --pluginpath /home/logstash/lib/ -f /etc/logstash/conf.d/
   #command: logstash -f /etc/logstash/conf.d/
   volumes:
     - ./logstash/config:/etc/logstash/conf.d
-    - ./logstash/plugin/:/opt/logstash/bin/plugins/  
-
+    - ./logstash/plugin/logstash-input-log4j2-5.1:/home/logstash
   ports:
     - "5000:5000"
+    - "4560:4560"
+    - "4561:4561"
   links:
     - elasticsearch
 kibana:
